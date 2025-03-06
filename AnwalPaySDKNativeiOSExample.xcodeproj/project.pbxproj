@@ -54,74 +54,7 @@
 		F12CE4DB2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnwalPaySDKNativeiOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		C54BF1ED2D78FDFD002D6192 /* Exceptions for "amwalsdk" folder in "Embed Frameworks" phase from "amwalsdk" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			attributesByRelativePath = {
-				Flutter/App.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FBLPromises.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseCore.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseCoreExtension.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseCoreInternal.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseCrashlytics.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseInstallations.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseRemoteConfigInterop.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FirebaseSessions.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/Flutter.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/FlutterPluginRegistrant.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/GoogleDataTransport.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/GoogleUtilities.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/Promises.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/firebase_core.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/firebase_crashlytics.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/nanopb.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/nfc_manager.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/package_info_plus.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/path_provider_foundation.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/share_plus.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/shared_preferences_foundation.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/smart_auth.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-				Flutter/webview_flutter_wkwebview.xcframework = (CodeSignOnCopy, RemoveHeadersOnCopy, );
-			};
-			buildPhase = C54BF1EC2D78FDFD002D6192 /* Embed Frameworks */;
-			membershipExceptions = (
-				Flutter/App.xcframework,
-				Flutter/FBLPromises.xcframework,
-				Flutter/firebase_core.xcframework,
-				Flutter/firebase_crashlytics.xcframework,
-				Flutter/FirebaseCore.xcframework,
-				Flutter/FirebaseCoreExtension.xcframework,
-				Flutter/FirebaseCoreInternal.xcframework,
-				Flutter/FirebaseCrashlytics.xcframework,
-				Flutter/FirebaseInstallations.xcframework,
-				Flutter/FirebaseRemoteConfigInterop.xcframework,
-				Flutter/FirebaseSessions.xcframework,
-				Flutter/Flutter.xcframework,
-				Flutter/FlutterPluginRegistrant.xcframework,
-				Flutter/GoogleDataTransport.xcframework,
-				Flutter/GoogleUtilities.xcframework,
-				Flutter/nanopb.xcframework,
-				Flutter/nfc_manager.xcframework,
-				Flutter/package_info_plus.xcframework,
-				Flutter/path_provider_foundation.xcframework,
-				Flutter/Promises.xcframework,
-				Flutter/share_plus.xcframework,
-				Flutter/shared_preferences_foundation.xcframework,
-				Flutter/smart_auth.xcframework,
-				Flutter/webview_flutter_wkwebview.xcframework,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		F12791412D57A71A0073F075 /* amwalsdk */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C54BF1ED2D78FDFD002D6192 /* Exceptions for "amwalsdk" folder in "Embed Frameworks" phase from "amwalsdk" target */,
-			);
-			path = amwalsdk;
-			sourceTree = "<group>";
-		};
 		F12CE4DD2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AnwalPaySDKNativeiOSExample;
@@ -162,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				F12CE4DD2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample */,
-				F12791412D57A71A0073F075 /* amwalsdk */,
 				F12CE4DC2D555FAF00B5425E /* Products */,
 				578CE74885668C6C51DD6982 /* Pods */,
 				F1578A1778BE501AE7B5B329 /* Frameworks */,
@@ -213,9 +145,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				F12791412D57A71A0073F075 /* amwalsdk */,
-			);
 			name = amwalsdk;
 			productName = amwalsdk;
 			productReference = F12791402D57A71A0073F075 /* amwalsdk.framework */;
@@ -230,6 +159,7 @@
 				F12CE4D82D555FAF00B5425E /* Frameworks */,
 				F12CE4D92D555FAF00B5425E /* Resources */,
 				F127914E2D57A71A0073F075 /* Embed Frameworks */,
+				811C3176BD83B152B3FBEB00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,6 +230,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		811C3176BD83B152B3FBEB00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AF8B108C06A20642527AC81E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
