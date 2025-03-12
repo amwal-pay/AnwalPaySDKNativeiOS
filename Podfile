@@ -7,7 +7,7 @@ target 'AnwalPaySDKNativeiOSExample' do
   use_frameworks! # Required for Flutter modules
 
 
-  pod 'amwalsdk', '~> 1.0.18'
+  pod 'amwalsdk', '~> 1.0.27'
 
 end
 
