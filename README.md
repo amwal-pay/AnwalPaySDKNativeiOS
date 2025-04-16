@@ -68,8 +68,7 @@ paymentSDK.present(from: self) { result in
 
 #### Currency
 - OMR (Omani Rial)
-- USD (US Dollar)
-- And more...
+
 
 #### Language
 - en (English)
