@@ -1,6 +1,6 @@
 # AnwalPaySDK for iOS
 
-AnwalPaySDK is a powerful payment processing SDK for iOS applications that enables seamless integration of payment functionality. This SDK supports various payment methods including NFC transactions.
+AnwalPaySDK is a powerful payment processing SDK for iOS applications that enables seamless integration of payment functionality. This SDK supports various payment methods including NFC, Card Wallet, and Apple Pay transactions.
 
 ## Requirements
 
@@ -44,7 +44,8 @@ let config = PaymentConfig(
     currency: .OMR,  // Available options: OMR, USD, etc.
     language: .en,   // Available options: en, ar
     environment: .UAT, // Available options: UAT, PROD
-    secureHash: "YOUR_SECURE_HASH"
+    secureHash: "YOUR_SECURE_HASH",
+    transactionType: .nfc // Available options: .nfc, .cardWallet, .applePay
 )
 ```
 
@@ -68,7 +69,8 @@ paymentSDK.present(from: self) { result in
 
 #### Currency
 - OMR (Omani Rial)
-
+- USD (US Dollar)
+- And more...
 
 #### Language
 - en (English)
@@ -79,8 +81,9 @@ paymentSDK.present(from: self) { result in
 - PROD (Production environment)
 
 #### Transaction Types
-- NFC
-- Other supported payment methods
+- NFC (Near Field Communication)
+- CARD_WALLET (Card Wallet payments)
+- APPLE_PAY (Apple Pay integration)
 
 ## Security
 
@@ -96,7 +99,7 @@ Check out the example project in the repository to see a complete implementation
 ## Support
 
 For technical support or questions, please contact:
-- Email: support@amwal-pay.com
+- Email: support@anwal-pay.com
 - Website: https://www.amwal-pay.com/
 
 ## License
