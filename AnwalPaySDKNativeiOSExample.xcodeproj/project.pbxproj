@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8771424E384A8C7C6A572E8 /* Pods_AnwalPaySDKNativeiOSExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4D5B4335B3646BCA5F59F91 /* Pods_AnwalPaySDKNativeiOSExample.framework */; };
+		109C39E0B89CB853CF47882F /* Pods_AnwalPaySDKNativeiOSExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D7FEB67654D73D7558190E /* Pods_AnwalPaySDKNativeiOSExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,9 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		69E14EF657650216422ABED9 /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig"; path = "Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig"; sourceTree = "<group>"; };
-		CDB93B0C31E5BBF961A989DE /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnwalPaySDKNativeiOSExample.release.xcconfig"; path = "Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample.release.xcconfig"; sourceTree = "<group>"; };
-		E4D5B4335B3646BCA5F59F91 /* Pods_AnwalPaySDKNativeiOSExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnwalPaySDKNativeiOSExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68D7FEB67654D73D7558190E /* Pods_AnwalPaySDKNativeiOSExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnwalPaySDKNativeiOSExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC163A3CA4E784FEEB10C22E /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig"; path = "Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig"; sourceTree = "<group>"; };
+		DC820E5E8C8BED1CCA37C2B0 /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnwalPaySDKNativeiOSExample.release.xcconfig"; path = "Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample.release.xcconfig"; sourceTree = "<group>"; };
 		F12CE4DB2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnwalPaySDKNativeiOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8771424E384A8C7C6A572E8 /* Pods_AnwalPaySDKNativeiOSExample.framework in Frameworks */,
+				109C39E0B89CB853CF47882F /* Pods_AnwalPaySDKNativeiOSExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,16 +55,16 @@
 		578CE74885668C6C51DD6982 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				69E14EF657650216422ABED9 /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */,
-				CDB93B0C31E5BBF961A989DE /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */,
+				AC163A3CA4E784FEEB10C22E /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */,
+				DC820E5E8C8BED1CCA37C2B0 /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		6CFF6806F8D8D352B02785B6 /* Frameworks */ = {
+		ADEF2B35820726D341E44486 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E4D5B4335B3646BCA5F59F91 /* Pods_AnwalPaySDKNativeiOSExample.framework */,
+				68D7FEB67654D73D7558190E /* Pods_AnwalPaySDKNativeiOSExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -75,7 +75,7 @@
 				F12CE4DD2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample */,
 				F12CE4DC2D555FAF00B5425E /* Products */,
 				578CE74885668C6C51DD6982 /* Pods */,
-				6CFF6806F8D8D352B02785B6 /* Frameworks */,
+				ADEF2B35820726D341E44486 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,12 +94,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F12CE4EB2D555FB100B5425E /* Build configuration list for PBXNativeTarget "AnwalPaySDKNativeiOSExample" */;
 			buildPhases = (
-				90323EF1AE32B5A9A4C823C4 /* [CP] Check Pods Manifest.lock */,
+				29CFDC37EE83D4E7936E9EB2 /* [CP] Check Pods Manifest.lock */,
 				F12CE4D72D555FAF00B5425E /* Sources */,
 				F12CE4D82D555FAF00B5425E /* Frameworks */,
 				F12CE4D92D555FAF00B5425E /* Resources */,
 				F127914E2D57A71A0073F075 /* Embed Frameworks */,
-				537178C11B63EE77EEC0B631 /* [CP] Embed Pods Frameworks */,
+				F68DDC9C395BF21AE5D374FE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,24 +158,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		537178C11B63EE77EEC0B631 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90323EF1AE32B5A9A4C823C4 /* [CP] Check Pods Manifest.lock */ = {
+		29CFDC37EE83D4E7936E9EB2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -195,6 +178,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F68DDC9C395BF21AE5D374FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -331,7 +331,7 @@
 		};
 		F12CE4EC2D555FB100B5425E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 69E14EF657650216422ABED9 /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */;
+			baseConfigurationReference = AC163A3CA4E784FEEB10C22E /* Pods-AnwalPaySDKNativeiOSExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -361,7 +361,7 @@
 		};
 		F12CE4ED2D555FB100B5425E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDB93B0C31E5BBF961A989DE /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */;
+			baseConfigurationReference = DC820E5E8C8BED1CCA37C2B0 /* Pods-AnwalPaySDKNativeiOSExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
