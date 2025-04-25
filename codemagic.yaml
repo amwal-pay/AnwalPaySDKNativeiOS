@@ -8,11 +8,11 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.amwal-pay.sdkexample
+        bundle_identifier: com.anwalpay.sdk.example
       xcode: latest
       cocoapods: default
       vars:
-        BUNDLE_ID: "com.amwal-pay.sdkexample"
+        BUNDLE_ID: "com.anwalpay.sdk.example"
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOS"
         APPLE_TEAM_ID: "U7372H8TUQ"
@@ -27,7 +27,7 @@ workflows:
         script: |
           app-store-connect fetch-signing-files \
             --type IOS_APP_STORE \
-            --bundle-identifier "com.amwal-pay.sdkexample"
+            --bundle-identifier "com.anwalpay.sdk.example"
       - name: Add certificates to keychain
         script: |
           keychain add-certificates
@@ -37,7 +37,7 @@ workflows:
       - name: Set up code signing settings
         script: |
           xcode-project enable-automatic-signing \
-            --bundle-identifier "com.amwal-pay.sdkexample" \
+            --bundle-identifier "com.anwalpay.sdk.example" \
             --team-id "U7372H8TUQ"
       - name: Increment build number
         script: |
