@@ -13,7 +13,7 @@ workflows:
         BUNDLE_ID: "com.amwalpay.sdkexample"
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOS"
-        APP_STORE_APPLE_ID: 6474037721
+        APP_STORE_APPLE_ID: 6744919252
       xcode: latest
       cocoapods: default
     scripts:
