@@ -8,9 +8,9 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.anwalpay.sdk.example
+        bundle_identifier: com.amwalpay.sdkexample
       vars:
-        BUNDLE_ID: "com.anwalpay.sdk.example"
+        BUNDLE_ID: "com.amwalpay.sdkexample"
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOS"
         APP_STORE_APPLE_ID: 6474037721
