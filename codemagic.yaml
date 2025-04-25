@@ -11,8 +11,8 @@ workflows:
         bundle_identifier: com.amwalpay.sdkexample
       vars:
         BUNDLE_ID: "com.amwalpay.sdkexample"
-        XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace"
-        XCODE_SCHEME: "AnwalPaySDKNativeiOS"
+        XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
+        XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
       xcode: latest
       cocoapods: default
