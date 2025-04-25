@@ -19,9 +19,9 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           pod install
-      - name: Set up code signing settings
+      - name: Set up automatic code signing
         script: |
-          xcode-project use-profiles
+          xcode-project use-profiles --auto
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
@@ -40,13 +40,10 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect:
-        auth: integration 
+        auth: integration
         submit_to_testflight: true
         beta_groups:
           - Testers
-        # Remove # from the following lines and adjust if you want to submit to App Store Review
-        # submit_to_app_store: false
-        # release_type: MANUAL
     triggering:
       events:
         - push
