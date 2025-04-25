@@ -19,6 +19,11 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           pod install
+      - name: Enable automatic code signing
+        script: |
+          xcode-project enable-automatic-signing \
+            --bundle-identifier "com.amwal-pay.sdkexample" \
+            --team-id "U7372H8TUQ"
       - name: Set up automatic code signing
         script: |
           xcode-project use-profiles --auto
@@ -32,7 +37,8 @@ workflows:
         script: |
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
+            --scheme "$XCODE_SCHEME" \
+            --automatic-signing
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
