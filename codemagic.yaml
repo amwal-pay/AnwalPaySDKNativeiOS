@@ -1,14 +1,20 @@
 workflows:
   ios-workflow:
     name: iOS Workflow
-    instance_type: mac_mini_m1
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: Amwal CodeMagic
     environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.amwal-pay.sdkexample
       xcode: latest
       cocoapods: default
       vars:
         BUNDLE_ID: "com.amwal-pay.sdkexample"
-        XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace" # Adjust if your workspace name is different
-        XCODE_SCHEME: "AnwalPaySDKNativeiOS" # Adjust if your scheme name is different
+        XCODE_WORKSPACE: "AnwalPaySDKNativeiOS.xcworkspace"
+        XCODE_SCHEME: "AnwalPaySDKNativeiOS"
     scripts:
       - name: Install CocoaPods dependencies
         script: |
@@ -18,7 +24,6 @@ workflows:
           xcode-project use-profiles
       - name: Increment build number
         script: |
-          #!/bin/sh
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$BUNDLE_ID")
           NEXT_BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
@@ -26,7 +31,7 @@ workflows:
       - name: Build iOS
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
@@ -35,7 +40,7 @@ workflows:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
       app_store_connect:
-        api_key: 6Y389799JL # Your App Store Connect API key from the image
+        auth: integration 
         submit_to_testflight: true
         beta_groups:
           - Testers
