@@ -13,7 +13,11 @@ AnwalPaySDK is a powerful payment processing SDK for iOS applications that enabl
 1. Add the following line to your Podfile:
 
 ```ruby
+# For development
 pod 'amwalsdk'
+
+# For release/archive builds
+pod 'amwalsdk/Release'
 ```
 
 2. Run the following command in your terminal:
@@ -84,6 +88,22 @@ paymentSDK.present(from: self) { result in
 - NFC (Near Field Communication)
 - CARD_WALLET (Card Wallet payments)
 - APPLE_PAY (Apple Pay integration)
+
+### Apple Pay Requirements
+
+When using Apple Pay transactions, you must:
+
+1. Enable Apple Pay capability in your Xcode project:
+   - Open your project in Xcode
+   - Select your target
+   - Go to "Signing & Capabilities"
+   - Click "+" and add "Apple Pay"
+   - Configure your merchant ID in the capability settings
+
+2. Share your Apple Pay merchant ID with AnwalPay:
+   - Contact our support team
+   - Provide your Apple Pay merchant ID
+   - We will configure our systems to accept payments from your merchant ID
 
 ## Security
 
