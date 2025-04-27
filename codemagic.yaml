@@ -33,8 +33,8 @@ workflows:
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
             --export-options-plist exportOptions.plist \
-            --development-team "U7372H8TUQ" \
-            --clean
+            --clean \
+            -v
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
