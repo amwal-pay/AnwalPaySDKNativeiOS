@@ -24,18 +24,12 @@ workflows:
       - name: Install CocoaPods dependencies
         script: | 
           pod install
-      - name: Set up provisioning profiles settings on Xcode project
-        script: xcode-project use-profiles
       - name: Set up code signing
         script: |
           xcode-project use-profiles
-          xcode-project set-settings \
+          xcode-project show-build-settings \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --settings "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" \
-            --settings "CODE_SIGN_IDENTITY=$CODE_SIGN_IDENTITY" \
-            --settings "CODE_SIGN_STYLE=$CODE_SIGN_STYLE" \
-            --settings "PROVISIONING_PROFILE_SPECIFIER=$PROVISIONING_PROFILE_SPECIFIER"
+            --scheme "$XCODE_SCHEME"
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
