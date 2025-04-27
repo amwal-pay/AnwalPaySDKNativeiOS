@@ -10,55 +10,31 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.anwalpay.sdk.example
       vars:
-        BUNDLE_ID: "com.anwalpay.sdk.example"
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
-        DEVELOPMENT_TEAM: "U7372H8TUQ"
-        CODE_SIGN_STYLE: "Automatic"
       xcode: latest
       cocoapods: default
     scripts:
       - name: Install CocoaPods dependencies
         script: |
           pod install
-
-      - name: Set up code signing
-        script: |
-          xcode-project use-profiles
-
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
           echo "Current PROJECT_BUILD_NUMBER is $PROJECT_BUILD_NUMBER"
           agvtool new-version -all "$PROJECT_BUILD_NUMBER"
-
       - name: Build IPA for App Store distribution
         script: |
-          mkdir -p build/ios/xcarchive
-          xcodebuild -workspace "$XCODE_WORKSPACE" \
-            -scheme "$XCODE_SCHEME" \
-            -configuration Release \
-            -archivePath build/ios/xcarchive/AnwalPaySDKNativeiOSExample.xcarchive \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            CODE_SIGN_IDENTITY="Apple Development" \
-            -allowProvisioningUpdates \
-            -allowProvisioningDeviceRegistration \
-            archive
-          
-          xcodebuild -exportArchive \
-            -archivePath build/ios/xcarchive/AnwalPaySDKNativeiOSExample.xcarchive \
-            -exportOptionsPlist ExportOptions.plist \
-            -exportPath build/ios/ipa
-
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME" \
+            --verbose
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-
     publishing:
       email:
         recipients:
@@ -72,7 +48,6 @@ workflows:
         beta_groups:
           - Testers
         submit_to_app_store: false
-
     triggering:
       events:
         - push
