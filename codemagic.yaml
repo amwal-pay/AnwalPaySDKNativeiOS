@@ -30,6 +30,9 @@ workflows:
           xcode-project show-build-settings \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME"
+      - name: Verify provisioning profile
+        script: |
+          security cms -D -i "$HOME/Library/MobileDevice/Provisioning Profiles/Amwal native Example.mobileprovision"
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
@@ -42,7 +45,13 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist exportOptions.plist \
             --clean \
-            -v
+            -v \
+            --build-settings "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" \
+            --build-settings "CODE_SIGN_IDENTITY=$CODE_SIGN_IDENTITY" \
+            --build-settings "CODE_SIGN_STYLE=$CODE_SIGN_STYLE" \
+            --build-settings "PROVISIONING_PROFILE_SPECIFIER=$PROVISIONING_PROFILE_SPECIFIER" \
+            --build-settings "CODE_SIGNING_REQUIRED=YES" \
+            --build-settings "CODE_SIGNING_ALLOWED=YES"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
