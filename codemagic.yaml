@@ -9,7 +9,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.anwalpay.sdk.example
-        automatic_code_signing: true
       vars:
         BUNDLE_ID: "com.anwalpay.sdk.example"
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
