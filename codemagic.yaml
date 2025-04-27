@@ -14,6 +14,10 @@ workflows:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
+        DEVELOPMENT_TEAM: "U7372H8TUQ"
+        CODE_SIGN_IDENTITY: "Apple Distribution"
+        CODE_SIGN_STYLE: "Manual"
+        PROVISIONING_PROFILE_SPECIFIER: "Amwal native Example"
       xcode: latest
       cocoapods: default
     scripts:
@@ -22,6 +26,16 @@ workflows:
           pod install
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
+      - name: Set up code signing
+        script: |
+          xcode-project use-profiles
+          xcode-project set-settings \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME" \
+            --settings "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" \
+            --settings "CODE_SIGN_IDENTITY=$CODE_SIGN_IDENTITY" \
+            --settings "CODE_SIGN_STYLE=$CODE_SIGN_STYLE" \
+            --settings "PROVISIONING_PROFILE_SPECIFIER=$PROVISIONING_PROFILE_SPECIFIER"
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
