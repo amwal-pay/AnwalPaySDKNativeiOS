@@ -14,6 +14,8 @@ workflows:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
+        DEVELOPMENT_TEAM: "U7372H8TUQ"
+        CODE_SIGN_STYLE: "Automatic"
       xcode: latest
       cocoapods: default
     scripts:
