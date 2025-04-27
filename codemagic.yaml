@@ -35,11 +35,20 @@ workflows:
 
       - name: Build IPA for App Store distribution
         script: |
-          xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --export-options-plist ExportOptions.plist \
-            --verbose
+          xcodebuild -workspace "$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -archivePath build/ios/xcarchive/AnwalPaySDKNativeiOSExample.xcarchive \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            CODE_SIGN_IDENTITY="Apple Development" \
+            archive
+          
+          xcodebuild -exportArchive \
+            -archivePath build/ios/xcarchive/AnwalPaySDKNativeiOSExample.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/ios/ipa
 
     artifacts:
       - build/ios/ipa/*.ipa
