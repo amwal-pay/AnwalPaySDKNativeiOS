@@ -34,10 +34,7 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist exportOptions.plist \
             --clean \
-            -v \
-            --code-signing-identity "Apple Distribution" \
-            --provisioning-profiles "Amwal native Example" \
-            --team-id "U7372H8TUQ"
+            -v
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
