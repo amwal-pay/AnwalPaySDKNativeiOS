@@ -7,11 +7,13 @@
     <key>teamID</key>
     <string>U7372H8TUQ</string>
     <key>signingStyle</key>
-    <string>automatic</string>
+    <string>manual</string>
     <key>provisioningProfiles</key>
     <dict>
         <key>com.anwalpay.sdk.example</key>
-        <string>AnwalPaySDKNativeiOSExample_AppStore</string>
+        <string>Amwal native Example</string>
     </dict>
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
 </dict>
 </plist> 

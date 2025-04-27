@@ -33,8 +33,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F12CE4DD2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = AnwalPaySDKNativeiOSExample;
 			sourceTree = "<group>";
 		};
@@ -188,9 +186,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -337,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AnwalPaySDKNativeiOSExample/AnwalPaySDKNativeiOSExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"AnwalPaySDKNativeiOSExample/Preview Content\"";
 				DEVELOPMENT_TEAM = U7372H8TUQ;
 				ENABLE_PREVIEWS = YES;
@@ -369,7 +371,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = AnwalPaySDKNativeiOSExample/AnwalPaySDKNativeiOSExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"AnwalPaySDKNativeiOSExample/Preview Content\"";
 				DEVELOPMENT_TEAM = U7372H8TUQ;
 				ENABLE_PREVIEWS = YES;
