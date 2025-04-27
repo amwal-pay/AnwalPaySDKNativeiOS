@@ -8,7 +8,8 @@ target 'AnwalPaySDKNativeiOSExample' do
 #  pod 'amwalsdk'
   #      pod 'amwalsdk', :http => 'https://github.com/amwal-pay/AnwalPaySDKNativeiOSExample/releases/download/v1.0.76/amwalsdk.zip'
   #  in case build release
-    pod 'amwalsdk/Release', :path => '/Users/amrsaied/Documents/Flutter/Amwal/mobile/amwal_pay_sdk_amwal/AnwalPaySDKNativeiOSExample/amwalsdk/'
+    # pod 'amwalsdk/Release', :path => '/Users/amrsaied/Documents/Flutter/Amwal/mobile/amwal_pay_sdk_amwal/AnwalPaySDKNativeiOSExample/amwalsdk/'
+     pod 'amwalsdk/Release'
 
     
 
