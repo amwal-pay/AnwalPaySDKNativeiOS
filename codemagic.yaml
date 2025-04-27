@@ -14,44 +14,26 @@ workflows:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
-        DEVELOPMENT_TEAM: "U7372H8TUQ"
-        CODE_SIGN_IDENTITY: "Apple Distribution"
-        CODE_SIGN_STYLE: "Manual"
-        PROVISIONING_PROFILE_SPECIFIER: "Amwal native Example"
       xcode: latest
       cocoapods: default
     scripts:
       - name: Install CocoaPods dependencies
         script: | 
           pod install
-      - name: Set up code signing
-        script: |
-          xcode-project use-profiles
-          xcode-project show-build-settings \
-            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME"
-      - name: Verify provisioning profile
-        script: |
-          security cms -D -i "$HOME/Library/MobileDevice/Provisioning Profiles/Amwal native Example.mobileprovision"
+      - name: Set up provisioning profiles settings on Xcode project
+        script: xcode-project use-profiles
       - name: Increment build number
         script: | 
           cd $CM_BUILD_DIR
           echo "Current PROJECT_BUILD_NUMBER is $PROJECT_BUILD_NUMBER"
           agvtool new-version -all "$PROJECT_BUILD_NUMBER"
+      - name: Set up code signing settings on Xcode project
+        script: xcode-project use-profiles
       - name: Build ipa for distribution
         script: | 
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --export-options-plist exportOptions.plist \
-            --clean \
-            -v \
-            --build-settings "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" \
-            --build-settings "CODE_SIGN_IDENTITY=$CODE_SIGN_IDENTITY" \
-            --build-settings "CODE_SIGN_STYLE=$CODE_SIGN_STYLE" \
-            --build-settings "PROVISIONING_PROFILE_SPECIFIER=$PROVISIONING_PROFILE_SPECIFIER" \
-            --build-settings "CODE_SIGNING_REQUIRED=YES" \
-            --build-settings "CODE_SIGNING_ALLOWED=YES"
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
