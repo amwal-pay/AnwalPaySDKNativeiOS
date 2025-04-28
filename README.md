@@ -40,6 +40,7 @@ import amwalsdk
 
 2. Configure the payment parameters:
 
+NOTE: FetchSessionToken is a backend API call that Merchant needs to make to our backend. The API specification for this API are mentioned in step 4.
 ```swift
 // First, fetch the session token
 let networkClient = NetworkClient()
@@ -55,7 +56,7 @@ networkClient.fetchSessionToken(
             environment: .UAT,  // Available options: .UAT, .PROD, .SIT
             sessionToken: token,
             currency: .OMR,     // Available options: .OMR, .USD, etc.
-            amount: "AMOUNT",
+            amount: 10,
             merchantId: "YOUR_MERCHANT_ID",
             terminalId: "YOUR_TERMINAL_ID",
             locale: .en,        // Available options: .en, .ar
