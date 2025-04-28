@@ -41,30 +41,65 @@ import amwalsdk
 2. Configure the payment parameters:
 
 ```swift
-let config = PaymentConfig(
+// First, fetch the session token
+let networkClient = NetworkClient()
+networkClient.fetchSessionToken(
+    env: .UAT,  // Available options: .UAT, .PROD, .SIT
     merchantId: "YOUR_MERCHANT_ID",
-    terminalId: "YOUR_TERMINAL_ID",
-    amount: "AMOUNT",
-    currency: .OMR,  // Available options: OMR, USD, etc.
-    language: .en,   // Available options: en, ar
-    environment: .UAT, // Available options: UAT, PROD
-    secureHash: "YOUR_SECURE_HASH",
-    transactionType: .nfc // Available options: .nfc, .cardWallet, .applePay
-)
+    customerId: nil,  // Optional, only needed for saved card functionality
+    secureHashValue: "YOUR_SECURE_HASH"
+) { sessionToken in
+    if let token = sessionToken {
+        // Create the configuration with the session token
+        let config = Config(
+            environment: .UAT,  // Available options: .UAT, .PROD, .SIT
+            sessionToken: token,
+            currency: .OMR,     // Available options: .OMR, .USD, etc.
+            amount: "AMOUNT",
+            merchantId: "YOUR_MERCHANT_ID",
+            terminalId: "YOUR_TERMINAL_ID",
+            locale: .en,        // Available options: .en, .ar
+            transactionType: .nfc  // Available options: .nfc, .cardWallet, .applePay
+        )
+        
+        // Initialize and present the payment SDK
+        let sdk = AmwalSDK()
+        let viewController = try sdk.createViewController(
+            config: config,
+            onResponse: { response in
+                // Handle the payment response
+                print("Payment Response: \(response ?? "No response")")
+            },
+            onCustomerId: { customerId in
+                // Handle the customer ID if needed
+                print("Customer ID: \(customerId)")
+            }
+        )
+        
+        // Present the view controller
+        self.present(viewController, animated: true)
+    } else {
+        print("Failed to fetch session token")
+    }
+}
 ```
 
-3. Initialize and present the payment SDK:
+3. For SwiftUI applications, use the SDKViewControllerRepresentable:
 
 ```swift
-let paymentSDK = AnwalPaySDK(config: config)
-paymentSDK.present(from: self) { result in
-    switch result {
-    case .success(let transaction):
-        // Handle successful transaction
-        print("Transaction ID: \(transaction.id)")
-    case .failure(let error):
-        // Handle error
-        print("Error: \(error.localizedDescription)")
+struct PaymentView: View {
+    var body: some View {
+        SDKViewControllerRepresentable(
+            config: config,
+            onResponse: { response in
+                // Handle the payment response
+                print("Payment Response: \(response ?? "No response")")
+            },
+            onCustomerId: { customerId in
+                // Handle the customer ID if needed
+                print("Customer ID: \(customerId)")
+            }
+        )
     }
 }
 ```
