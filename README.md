@@ -69,12 +69,95 @@ paymentSDK.present(from: self) { result in
 }
 ```
 
+### 4. Getting the SDK Session Token and Calculation of Secure Hash to call the API
+
+# Endpoint to Fetch SDKSessionToken
+
+## Environment URLs
+
+### Stage
+- **Base URL**: `https://test.amwalpg.com:14443`
+- **Endpoint**: `Membership/GetSDKSessionToken`
+
+### Production
+- **Base URL**: `https://webhook.amwalpg.com`
+- **Endpoint**: `Membership/GetSDKSessionToken`
+
+---
+
+## Description
+This endpoint retrieves the SDK session token.
+
+---
+
+## Headers
+
+| Header        | Value              |
+|---------------|--------------------|
+| Content-Type  | application/json   |
+
+---
+
+## Sample Request
+
+```json
+{
+  "merchantId": 22914,
+  "customerId": "ed520b67-80b2-4e1a-9b86-34208da10e53",
+  "requestDateTime": "2025-02-16T12:43:51Z",
+  "secureHashValue": "AFCEA6D0D29909E6ED5900F543739975B17AABA66CF2C89BBCCD9382A0BC6DD7"
+}
+```
+## Sample Response
+
+```json
+{
+  "success": true,
+  "message": "Success",
+  "data": {
+    "sessionToken": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..3yAPVR3evEwvIdq808M2uQ..."
+  }
+}
+```
+
+## SecureHash
+
+### Overview
+HMAC SHA256 hashing ensures data integrity and authenticity between systems.
+
+---
+
+### Prepare Request
+
+1. Order key-value pairs **alphabetically**.
+2. Join by `&`, removing the last `&`.
+3. **Do not include** `secureHashValue` in the string.
+4. Convert the resulting string to a byte array.
+5. Generate a secure random key (at least 64 bits).
+6. Concatenate the key and the data byte array.
+7. Generate a **SHA256** hash.
+8. Send the hash with the request as `secureHashValue`.
+
+---
+
+### Example
+
+```json
+{
+  "merchantId": 22914,
+  "customerId": "ed520b67-80b2-4e1a-9b86-34208da10e53", //optional, only to be used when using saved card functionality
+  "requestDateTime": "2025-02-16T12:43:51Z",
+  "secureHashValue": "AFCEA6D0D29909E6ED5900F543739975B17AABA66CF2C89BBCCD9382A0BC6DD7"
+}
+```
+Example String to calculate Secure Hash using SHA-256 when not using customer ID = merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
+Example String to calculate Secure Hash using SHA-256 when using customer ID = customerID=123&merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
+
+
 ### Configuration Options
 
 #### Currency
 - OMR (Omani Rial)
-- USD (US Dollar)
-- And more...
 
 #### Language
 - en (English)
