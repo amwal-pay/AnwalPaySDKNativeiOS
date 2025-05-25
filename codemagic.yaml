@@ -29,7 +29,7 @@ workflows:
           xcode-project build-ipa \
             --workspace "$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
-            --export-options-plist=export_options.plist \
+            --export-options-plist=AnwalPaySDKNativeiOSExample/export_options.plist \
             --verbose \
             --clean
     artifacts:
