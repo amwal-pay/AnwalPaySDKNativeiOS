@@ -1,0 +1,22 @@
+{
+    "NSPrivacyAccessedAPITypes": [
+        {
+            "NSPrivacyAccessedAPIType": "NSUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": ["C617.1"]
+        },
+        {
+            "NSPrivacyAccessedAPIType": "NSBundle",
+            "NSPrivacyAccessedAPITypeReasons": ["C617.1"]
+        }
+    ],
+    "NSPrivacyTracking": false,
+    "NSPrivacyTrackingDomains": [],
+    "NSPrivacyCollectedDataTypes": [
+        {
+            "NSPrivacyCollectedDataType": "NSPrivacyCollectedDataTypeDeviceID",
+            "NSPrivacyCollectedDataTypeLinked": false,
+            "NSPrivacyCollectedDataTypeTracking": false,
+            "NSPrivacyCollectedDataTypePurposes": ["AppFunctionality"]
+        }
+    ]
+} 

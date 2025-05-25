@@ -14,7 +14,7 @@
   <key>teamID</key>
   <string>U7372H8TUQ</string>
   <key>signingStyle</key>
-  <string>manual</string>
+  <string>automatic</string>
   <key>provisioningProfiles</key>
   <dict>
     <key>com.anwalpay.sdk.example</key>
