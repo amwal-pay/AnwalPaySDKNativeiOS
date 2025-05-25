@@ -37,7 +37,7 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
     
     func startSdk(viewModel: PaymentFormViewModel) {
         networkClient.fetchSessionToken(
-            env: .UAT,
+            env: viewModel.selectedEnv,
             merchantId: viewModel.merchantId,
             customerId: nil,
             secureHashValue: viewModel.secureHash
