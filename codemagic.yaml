@@ -31,8 +31,7 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist=export_options.plist \
             --verbose \
-            --clean \
-            --configuration Release
+            --clean
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
