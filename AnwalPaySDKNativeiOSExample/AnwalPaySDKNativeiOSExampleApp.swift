@@ -12,7 +12,10 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
 
     private let networkClient = NetworkClient()
     @State private var config: Config?
-    
+   
+
+
+
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -23,11 +26,17 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                     get: { config != nil },
                     set: { if !$0 { config = nil } }
                 )) {
+                    
                                    if let config = config {
                                        SDKViewControllerRepresentable(
                                            config: config,
-                                           onResponse: { _ in },
-                                           onCustomerId: { _ in }
+                                           onResponse: {
+                                               response in handleResponse(response: response)
+                    
+                                           },
+                                           onCustomerId:  { customerId in
+                                               UserDefaults.standard.set(customerId, forKey: "customer_id")
+                                           }
                                        ) .navigationBarHidden(true)
                                    }
                                }
@@ -35,17 +44,48 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
         }
     }
     
+    func handleResponse(response: String?) {
+        guard let response = response else {
+            print("Response is nil.")
+            return
+        }
+
+        // Convert the string to Data
+        guard let data = response.data(using: .utf8) else {
+            print("Failed to convert string to Data.")
+            return
+        }
+
+        // Parse the JSON
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                // Extract customerTokenId
+                if let customerTokenId = json["customerId"] as? String {
+                    UserDefaults.standard.set( customerTokenId, forKey: "customer_id")
+                } else {
+                    print("Customer Token ID not found.")
+                }
+            } else {
+                print("Failed to parse JSON into dictionary.")
+            }
+        } catch {
+            print("Error parsing JSON: \(error.localizedDescription)")
+        }
+    }
+
+
+    
     func startSdk(viewModel: PaymentFormViewModel) {
         networkClient.fetchSessionToken(
             env: viewModel.selectedEnv,
             merchantId: viewModel.merchantId,
-            customerId: nil,
+            customerId: viewModel.customerId,
             secureHashValue: viewModel.secureHash
         ) { [self] sessionToken in
             if let token = sessionToken {
                 
                 print("Session token: \(token)")
-                
+                print("customer id: \(viewModel.customerId ?? "nullString")")
                 // Map the UI transaction type to the SDK transaction type
                 let sdkTransactionType: Config.TransactionType
                 switch viewModel.transactionType {

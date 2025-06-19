@@ -19,5 +19,5 @@ class PaymentFormViewModel: ObservableObject {
     @Published var transactionType: TransactionType = .CARD_WALLET
     @Published var secureHash: String = "2B03FCDC101D3F160744342BFBA0BEA0E835EE436B6A985BA30464418392C703"
     @Published var selectedEnv: Config.Environment = .UAT
-        
+    @Published var customerId: String?
 }

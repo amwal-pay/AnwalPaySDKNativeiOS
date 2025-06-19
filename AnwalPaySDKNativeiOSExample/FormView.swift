@@ -14,17 +14,30 @@ struct FormView: View {
 
 
     @StateObject private var viewModel = PaymentFormViewModel()
-
+    @State private var showToast = false
     var body: some View {
+        ZStack {
             VStack {
-//                if let config = viewModel.config {
-//                    onConfigReady(config)
-//                }
-                // Top Bar
                 Text("Amwal Pay Demo")
                     .font(.title)
                     .padding()
-                
+                    .toolbar{
+                        ToolbarItem(placement: .navigationBarTrailing){
+                            Button(action: {
+                            
+                                UserDefaults.standard.removeObject(forKey: "customer_id")
+                                showToast = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                   showToast = false
+                                }
+                            
+                            }){
+                    
+                                Image(systemName: "trash") // "trash" or "trash.fill"
+                                    .foregroundColor(.red) // Optional: set bin icon color
+                            }}
+                    }
+              
                 // Form Content
                 ScrollView {
                     VStack(spacing: 16) {
@@ -75,7 +88,10 @@ struct FormView: View {
 
                         // Initiate Payment Button
                         Button(action: {
+                            let customerId = UserDefaults.standard.string(forKey: "customer_id")
+                            viewModel.customerId = customerId
                             onSubmit(viewModel)
+                            
                         }) {
                             Text("Initiate Payment Demo")
                                 .fontWeight(.semibold)
@@ -88,8 +104,24 @@ struct FormView: View {
                     }
                     .padding()
                     .navigationTitle("Payment Form")
-                }.padding(.horizontal)
+                  
+                }.padding(.horizontal).animation(.easeInOut, value: showToast)
+              
             }
+            
+            if showToast {
+                            Text("Customer Id Deleted")
+                                .font(.body)
+                                .padding()
+                                .background(Color.black.opacity(0.8))
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                                .padding()
+                                .transition(.opacity)
+                                .zIndex(1) // Ensure it appears above other elements
+                        }
+        }
+            
         }
 
 }
