@@ -59,7 +59,8 @@ networkClient.fetchSessionToken(
             merchantId: "YOUR_MERCHANT_ID",
             terminalId: "YOUR_TERMINAL_ID",
             locale: .en,        // Available options: .en, .ar
-            transactionType: .nfc  // Available options: .nfc, .cardWallet, .applePay
+            transactionType: .nfc,  // Available options: .nfc, .cardWallet, .applePay
+            transactionId: Config.generateTransactionId()  // Optional: Auto-generated if nil
         )
         
         // Initialize and present the payment SDK
@@ -188,6 +189,20 @@ HMAC SHA256 hashing ensures data integrity and authenticity between systems.
 Example String to calculate Secure Hash using SHA-256 when not using customer ID = merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
 Example String to calculate Secure Hash using SHA-256 when using customer ID = customerID=123&merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
 
+
+### UUID Generation
+
+If you need to generate a custom transaction ID, you can use the built-in UUID generator:
+
+```swift
+// Generate a UUID for transaction ID
+let transactionId = Config.generateTransactionId()
+
+// Or generate a custom UUID manually
+let customUUID = UUID().uuidString.lowercased()
+```
+
+The UUID generator creates lowercase UUIDs ensuring compatibility with the payment system.
 
 ### Configuration Options
 
