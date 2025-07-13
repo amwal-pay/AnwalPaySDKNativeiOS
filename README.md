@@ -60,7 +60,8 @@ networkClient.fetchSessionToken(
             terminalId: "YOUR_TERMINAL_ID",
             locale: .en,        // Available options: .en, .ar
             transactionType: .nfc,  // Available options: .nfc, .cardWallet, .applePay
-            transactionId: Config.generateTransactionId()  // Optional: Auto-generated if nil
+            transactionId: Config.generateTransactionId(),  // Optional: Auto-generated if nil
+            additionValues: Config.generateDefaultAdditionValues()  // Optional: Custom key-value pairs
         )
         
         // Initialize and present the payment SDK
@@ -203,6 +204,54 @@ let customUUID = UUID().uuidString.lowercased()
 ```
 
 The UUID generator creates lowercase UUIDs ensuring compatibility with the payment system.
+
+### Addition Values Configuration
+
+The SDK supports `additionValues` parameter for passing custom key-value pairs that can be used for various SDK functionalities.
+
+#### Default Addition Values
+
+The SDK automatically provides default values:
+- `merchantIdentifier`: "merchant.applepay.amwalpay" (used for Apple Pay configuration)
+
+#### Usage
+
+```swift
+// Using default additionValues
+let config = Config(
+    environment: .UAT,
+    sessionToken: token,
+    currency: .OMR,
+    amount: "100",
+    merchantId: "your_merchant_id",
+    terminalId: "your_terminal_id",
+    locale: .en,
+    transactionType: .applePay,
+    transactionId: Config.generateTransactionId(),
+    additionValues: Config.generateDefaultAdditionValues()
+)
+
+// Using custom additionValues
+let customAdditionValues = [
+    "merchantIdentifier": "merchant.custom.identifier",
+    "customKey": "customValue"
+]
+
+let customConfig = Config(
+    // ... other parameters
+    additionValues: customAdditionValues
+)
+```
+
+#### Available Methods
+
+```swift
+// Generate default addition values
+let defaultValues = Config.generateDefaultAdditionValues()
+
+// Generate a transaction ID
+let transactionId = Config.generateTransactionId()
+```
 
 ### Configuration Options
 
