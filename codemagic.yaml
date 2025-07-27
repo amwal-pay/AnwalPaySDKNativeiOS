@@ -7,8 +7,10 @@ workflows:
       app_store_connect: Amwal CodeMagic
     environment:
       ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.anwalpay.sdk.example
+        provisioning_profiles:
+          - Amwal Native
+        certificates:
+          - Code Magic Apple Dis
       vars:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
@@ -24,14 +26,15 @@ workflows:
           cd $CM_BUILD_DIR
           echo "Current PROJECT_BUILD_NUMBER is $PROJECT_BUILD_NUMBER"
           agvtool new-version -all "$PROJECT_BUILD_NUMBER"
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
       - name: Build IPA for App Store distribution
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --export-options-plist=AnwalPaySDKNativeiOSExample/export_options.plist \
-            --verbose \
-            --clean
+             --workspace "$XCODE_WORKSPACE" \
+             --scheme "$XCODE_SCHEME" \
+             --archive-flags="-destination 'generic/platform=iOS'"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
