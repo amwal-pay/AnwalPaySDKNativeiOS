@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
-		<string>merchant.applepay.amwalpay</string>
+		<string>merchant.shahd.test</string>
 	</array>
 </dict>
 </plist>

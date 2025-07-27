@@ -107,7 +107,9 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                     locale: viewModel.language,
                     transactionType: sdkTransactionType,
                     transactionId: Config.generateTransactionId(),
-                    additionValues: Config.generateDefaultAdditionValues() // Optional: Includes merchantIdentifier for Apple Pay
+                    additionValues: [
+                      "merchantIdentifier": "merchant.shahd.test"
+                  ] // Optional: Includes merchantIdentifier for Apple Pay
                 )
                                 
             } else {
