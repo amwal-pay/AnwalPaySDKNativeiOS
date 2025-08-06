@@ -42,8 +42,7 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist=AnwalPaySDKNativeiOSExample/export_options.plist \
             --verbose \
-            --clean \
-            --development-team "U7372H8TUQ"
+            --clean
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
