@@ -9,6 +9,10 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.anwalpay.sdk.example
+        provisioning_profiles:
+          - Amwal Native
+        certificates:
+          - Code Magic Apple Dis
       vars:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
