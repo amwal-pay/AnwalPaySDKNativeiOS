@@ -29,6 +29,12 @@ workflows:
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
+      - name: Debug code signing setup
+        script: |
+          echo "Available provisioning profiles:"
+          security find-identity -v -p codesigning
+          echo "Available certificates:"
+          security find-certificate -a
       - name: Build IPA for App Store distribution
         script: |
           xcode-project build-ipa \
@@ -36,7 +42,8 @@ workflows:
             --scheme "$XCODE_SCHEME" \
             --export-options-plist=AnwalPaySDKNativeiOSExample/export_options.plist \
             --verbose \
-            --clean
+            --clean \
+            --development-team "U7372H8TUQ"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
