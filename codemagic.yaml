@@ -20,7 +20,8 @@ workflows:
     scripts:
       - name: Install CocoaPods dependencies
         script: |
-          pod install
+          pod install --repo-update
+
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
