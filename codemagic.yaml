@@ -15,7 +15,7 @@ workflows:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"
         APP_STORE_APPLE_ID: 6744919252
-      xcode: 16.3
+      xcode: latest
       cocoapods: default
     scripts:
       - name: Install CocoaPods dependencies
