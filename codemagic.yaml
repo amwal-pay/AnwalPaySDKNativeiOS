@@ -38,11 +38,9 @@ workflows:
       - name: Build IPA for App Store distribution
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-            --verbose \
-            --export-options-plist /Users/builder/export_options.plist \
-            --clean
+          --workspace "$XCODE_WORKSPACE" \
+          --scheme "$XCODE_SCHEME" \
+          --archive-flags="-destination 'generic/platform=iOS'"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
