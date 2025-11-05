@@ -20,4 +20,5 @@ class PaymentFormViewModel: ObservableObject {
     @Published var secureHash: String = "C0873776E2290E208FBBA27795DFC51B1531E73D187518106FE45DF344865149"
     @Published var selectedEnv: Config.Environment = .SIT
     @Published var customerId: String?
+    @Published var merchantReference: String = "1234"
 }

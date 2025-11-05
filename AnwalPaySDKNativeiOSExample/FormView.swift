@@ -46,6 +46,7 @@ struct FormView: View {
                         CustomTextField(label: "Terminal Id", text: $viewModel.terminalId)
                         CustomTextField(label: "Amount", text: $viewModel.amount)
                         CustomTextField(label: "Secret Key", text: $viewModel.secureHash)
+                        CustomTextField(label: "Merchant Reference (Optional)", text: $viewModel.merchantReference)
                         
                         // Dropdowns for Currency, Language, Transaction Type, and Environment
                         CustomDropdown(

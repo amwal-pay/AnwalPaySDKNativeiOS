@@ -61,7 +61,8 @@ networkClient.fetchSessionToken(
             locale: .en,        // Available options: .en, .ar
             transactionType: .nfc,  // Available options: .nfc, .cardWallet, .applePay
             transactionId: Config.generateTransactionId(),  // Optional: Auto-generated if nil
-            additionValues: Config.generateDefaultAdditionValues()  // Optional: Custom key-value pairs
+            additionValues: Config.generateDefaultAdditionValues(),  // Optional: Custom key-value pairs
+            merchantReference: "optional-merchant-reference"  // Optional: Merchant reference for transaction tracking
         )
         
         // Initialize and present the payment SDK

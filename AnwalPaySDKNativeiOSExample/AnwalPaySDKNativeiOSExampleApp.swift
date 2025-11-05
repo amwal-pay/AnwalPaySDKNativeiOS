@@ -109,7 +109,8 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                     transactionId: Config.generateTransactionId(),
                     additionValues: [
                       "merchantIdentifier": "merchant.shahd.test"
-                  ] // Optional: Includes merchantIdentifier for Apple Pay
+                  ], // Optional: Includes merchantIdentifier for Apple Pay
+                    merchantReference: viewModel.merchantReference.isEmpty ? nil : viewModel.merchantReference
                 )
                                 
             } else {
