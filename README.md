@@ -208,17 +208,27 @@ The UUID generator creates lowercase UUIDs ensuring compatibility with the payme
 
 ### Addition Values Configuration
 
-The SDK supports `additionValues` parameter for passing custom key-value pairs that can be used for various SDK functionalities.
+The SDK supports `additionValues` parameter for passing custom key-value pairs that can be used for various SDK functionalities. This is particularly important for Apple Pay configuration.
 
 #### Default Addition Values
 
 The SDK automatically provides default values:
 - `merchantIdentifier`: "merchant.applepay.amwalpay" (used for Apple Pay configuration)
 
-#### Usage
+#### Apple Pay Specific Configuration
+
+When implementing Apple Pay, the `merchantIdentifier` in `additionValues` must match your Apple Pay merchant ID configured in your Apple Developer account and Xcode project.
+
+**Important**: The `merchantIdentifier` value in `additionValues` should match:
+1. Your Apple Pay merchant ID from Apple Developer Portal
+2. The merchant ID configured in Xcode under "Signing & Capabilities" → "Apple Pay"
+3. The merchant ID registered with AnwalPay
+
+#### Usage Examples
+
+##### Example 1: Using Default Addition Values (for AnwalPay's default Apple Pay merchant)
 
 ```swift
-// Using default additionValues
 let config = Config(
     environment: .UAT,
     sessionToken: token,
@@ -230,29 +240,91 @@ let config = Config(
     transactionType: .applePay,
     transactionId: Config.generateTransactionId(),
     additionValues: Config.generateDefaultAdditionValues()
+    // This generates: ["merchantIdentifier": "merchant.applepay.amwalpay"]
 )
+```
 
-// Using custom additionValues
+##### Example 2: Using Custom Apple Pay Merchant Identifier
+
+```swift
+// For your own Apple Pay merchant ID
 let customAdditionValues = [
-    "merchantIdentifier": "merchant.custom.identifier",
-    "customKey": "customValue"
+    "merchantIdentifier": "merchant.com.yourcompany.applepay"
 ]
 
-let customConfig = Config(
-    // ... other parameters
+let config = Config(
+    environment: .UAT,
+    sessionToken: token,
+    currency: .OMR,
+    amount: "100",
+    merchantId: "your_merchant_id",
+    terminalId: "your_terminal_id",
+    locale: .en,
+    transactionType: .applePay,
+    transactionId: Config.generateTransactionId(),
     additionValues: customAdditionValues
+)
+```
+
+##### Example 3: Adding Additional Custom Values
+
+```swift
+// You can add more custom key-value pairs alongside merchantIdentifier
+let extendedAdditionValues = [
+    "merchantIdentifier": "merchant.com.yourcompany.applepay",
+]
+
+let config = Config(
+    environment: .UAT,
+    sessionToken: token,
+    currency: .OMR,
+    amount: "100",
+    merchantId: "your_merchant_id",
+    terminalId: "your_terminal_id",
+    locale: .en,
+    transactionType: .applePay,
+    transactionId: Config.generateTransactionId(),
+    additionValues: extendedAdditionValues
+)
+```
+
+##### Example 4: For Non-Apple Pay Transactions
+
+```swift
+// For NFC or Card Wallet transactions, additionValues is optional
+let config = Config(
+    environment: .UAT,
+    sessionToken: token,
+    currency: .OMR,
+    amount: "100",
+    merchantId: "your_merchant_id",
+    terminalId: "your_terminal_id",
+    locale: .en,
+    transactionType: .nfc,  // or .cardWallet
+    transactionId: Config.generateTransactionId(),
+    additionValues: nil  // Optional for non-Apple Pay transactions
 )
 ```
 
 #### Available Methods
 
 ```swift
-// Generate default addition values
+// Generate default addition values (includes default Apple Pay merchant identifier)
 let defaultValues = Config.generateDefaultAdditionValues()
+// Returns: ["merchantIdentifier": "merchant.applepay.amwalpay"]
 
 // Generate a transaction ID
 let transactionId = Config.generateTransactionId()
+// Returns: A lowercase UUID string (e.g., "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
 ```
+
+#### Key Points for Apple Pay Integration
+
+1. **Merchant Identifier Consistency**: Ensure the `merchantIdentifier` in `additionValues` matches your Apple Pay configuration
+2. **Required for Apple Pay**: The `merchantIdentifier` key is mandatory when using `transactionType: .applePay`
+3. **Optional for Other Payment Types**: For NFC and Card Wallet transactions, `additionValues` can be nil or contain custom tracking data
+4. **Case Sensitive**: The key name `merchantIdentifier` is case-sensitive
+5. **Format**: Apple Pay merchant identifiers typically follow the format: `merchant.com.yourcompany.identifier`
 
 ### Configuration Options
 
