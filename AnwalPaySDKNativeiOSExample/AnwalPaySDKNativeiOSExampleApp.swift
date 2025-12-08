@@ -12,6 +12,7 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
 
     private let networkClient = NetworkClient()
     @State private var config: Config?
+    @State private var lastViewModel: PaymentFormViewModel?
    
 
 
@@ -20,6 +21,7 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
         WindowGroup {
             NavigationStack {
                 FormView(onSubmit:  { viewModel in
+                    lastViewModel = viewModel
                     startSdk(viewModel: viewModel)
                 })
                 .navigationDestination(isPresented: Binding<Bool>(
@@ -70,6 +72,13 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
             }
         } catch {
             print("Error parsing JSON: \(error.localizedDescription)")
+        }
+        
+        // Reset config to nil and recreate it to show saved cards sheet again
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let viewModel = self.lastViewModel {
+                self.startSdk(viewModel: viewModel)
+            }
         }
     }
 
