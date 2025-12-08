@@ -22,6 +22,11 @@ class NetworkClient {
         secureHashValue: String,
         completion: @escaping (String?) -> Void
     ) {
+        print("🌐 [NetworkClient] Starting session token request...")
+        print("   • Environment: \(env)")
+        print("   • Merchant ID: \(merchantId)")
+        print("   • Customer ID: \(customerId ?? "nil")")
+        print("   • Secure Hash: \(secureHashValue.prefix(8))...")
         let webhookUrl: String
         switch env {
         case .SIT:
@@ -115,11 +120,17 @@ class NetworkClient {
                 }
                 
                 let task = self.urlSession.dataTask(with: request) { data, response, error in
-                    print("\n📥 [SESSION TOKEN RESPONSE] Received response...")
+                    print("\n🌐 [NetworkClient] Received response")
+                    
+                    if let httpResponse = response as? HTTPURLResponse {
+                        print("   • Status Code: \(httpResponse.statusCode)")
+                        if let headers = httpResponse.allHeaderFields as? [String: Any] {
+                            print("   • Response Headers: \(headers)")
+                        }
+                    }
                     
                     if let error = error {
-                        print("❌ Network Error: \(error.localizedDescription)")
-                        print("❌ Error details: \(error)")
+                        print("❌ [NetworkClient] Network error: \(error.localizedDescription)")
                         DispatchQueue.main.async {
                             self.showErrorDialog(message: "Network Error: \(error.localizedDescription)")
                             completion(nil)
@@ -127,16 +138,8 @@ class NetworkClient {
                         return
                     }
                     
-                    if let httpResponse = response as? HTTPURLResponse {
-                        print("📊 HTTP Status Code: \(httpResponse.statusCode)")
-                        print("📋 Response headers:")
-                        for (key, value) in httpResponse.allHeaderFields {
-                            print("   \(key): \(value)")
-                        }
-                    }
-                    
-                    guard let data = data else {
-                        print("❌ No data received in response")
+                    guard let data = data, let responseString = String(data: data, encoding: .utf8) else {
+                        print("❌ [NetworkClient] No data received or invalid data format")
                         DispatchQueue.main.async {
                             self.showErrorDialog(message: "No data received from server")
                             completion(nil)
@@ -144,11 +147,7 @@ class NetworkClient {
                         return
                     }
                     
-                    print("📦 Response data size: \(data.count) bytes")
-                    
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("📄 Raw response:\n\(responseString)")
-                    }
+                    print("📦 [NetworkClient] Raw response: \(responseString)")
                     
                     do {
                         guard let response = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {

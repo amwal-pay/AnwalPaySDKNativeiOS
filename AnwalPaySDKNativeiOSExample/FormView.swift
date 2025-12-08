@@ -89,10 +89,10 @@ struct FormView: View {
 
                         // Initiate Payment Button
                         Button(action: {
-                            let customerId = UserDefaults.standard.string(forKey: "customer_id")
+                            // Load customer ID from UserDefaults with empty string as default
+                            let customerId = UserDefaults.standard.string(forKey: "customer_id") ?? ""
                             viewModel.customerId = customerId
                             onSubmit(viewModel)
-                            
                         }) {
                             Text("Initiate Payment Demo")
                                 .fontWeight(.semibold)
