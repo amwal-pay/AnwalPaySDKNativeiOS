@@ -33,6 +33,8 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F12CE4DD2D555FAF00B5425E /* AnwalPaySDKNativeiOSExample */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = AnwalPaySDKNativeiOSExample;
 			sourceTree = "<group>";
 		};
@@ -186,13 +188,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-AnwalPaySDKNativeiOSExample/Pods-AnwalPaySDKNativeiOSExample-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
