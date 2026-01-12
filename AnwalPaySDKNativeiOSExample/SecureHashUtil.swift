@@ -5,64 +5,30 @@ class SecureHashUtil {
 
     /// Removes `secureHashValue`, composes the data, and generates a secure hash.
     static func clearSecureHash(secretKey: String, data: inout [String: Any?]) -> String {
-        print("🔒 [SECURE HASH] Starting secure hash calculation...")
-        print("🔑 Secret key length: \(secretKey.count) characters")
-        print("📊 Input data before processing: \(data)")
-        
         data.removeValue(forKey: "secureHashValue")
-        print("📊 Data after removing secureHashValue: \(data)")
-        
         let concatenatedString = composeData(requestParameters: data)
-        print("📝 Concatenated string for hashing: '\(concatenatedString)'")
-        
-        let hash = generateSecureHash(message: concatenatedString, secretKey: secretKey)
-        print("🔐 Generated secure hash: \(hash)")
-        
-        return hash
+        return generateSecureHash(message: concatenatedString, secretKey: secretKey)
     }
 
     /// Composes the data into a sorted and concatenated string.
     private static func composeData(requestParameters: [String: Any?]) -> String {
-        guard !requestParameters.isEmpty else { 
-            print("⚠️ Empty request parameters")
-            return "" 
-        }
+        guard !requestParameters.isEmpty else { return "" }
 
         // Sort parameters by key in ascending order and remove nil values
         let sortedParameters = requestParameters
             .filter { $0.value != nil } // Remove entries with nil values
             .sorted { $0.key < $1.key }
 
-        print("📋 Sorted parameters: \(sortedParameters)")
-
         // Join key-value pairs into a single string
-        let result = sortedParameters
+        return sortedParameters
             .map { "\($0.key)=\($0.value!)" } // Safely unwrap since nil values are removed
             .joined(separator: "&")
-            
-        print("🔗 Composed data string: '\(result)'")
-        return result
     }
 
     /// Generates a secure hash using HMAC-SHA256.
     private static func generateSecureHash(message: String, secretKey: String) -> String {
-        print("🔐 [HMAC-SHA256] Generating hash...")
-        print("📝 Message: '\(message)'")
-        print("🔑 Secret key (first 10 chars): '\(String(secretKey.prefix(10)))...'")
-        
-        guard let keyData = secretKey.hexToBytes() else { 
-            print("❌ Failed to convert secret key to bytes")
-            return "" 
-        }
-        
-        print("🔢 Key data length: \(keyData.count) bytes")
-        
-        guard let messageData = message.data(using: .utf8) else { 
-            print("❌ Failed to convert message to UTF-8 data")
-            return "" 
-        }
-        
-        print("📦 Message data length: \(messageData.count) bytes")
+        guard let keyData = secretKey.hexToBytes() else { return "" }
+        guard let messageData = message.data(using: .utf8) else { return "" }
 
         var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
         keyData.withUnsafeBytes { keyBytes in
@@ -71,9 +37,7 @@ class SecureHashUtil {
             }
         }
 
-        let result = digest.map { String(format: "%02x", $0) }.joined().uppercased()
-        print("✅ Generated hash: \(result)")
-        return result
+        return digest.map { String(format: "%02x", $0) }.joined().uppercased()
     }
 }
 

@@ -18,19 +18,27 @@ struct SDKViewControllerRepresentable: UIViewControllerRepresentable {
         do {
             // Create the FlutterViewController using AmwalSDK
             let sdk = AmwalSDK()
-            return try sdk.createViewController(
+            let vc = try sdk.createViewController(
                 config: config,
                 onResponse: onResponse,
                 onCustomerId: onCustomerId
             )
+            // Ensure transparency
+            vc.view.backgroundColor = .clear
+            vc.view.isOpaque = false
+            return vc
         } catch {
             // Handle the error if creation fails (e.g., show a default or error view)
             print("Error creating FlutterViewController: \(error.localizedDescription)")
-            return UIViewController() // Return an empty or error state view controller
+            let errorView = UIViewController()
+            errorView.view.backgroundColor = .clear
+            return errorView
         }
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // Handle updates to the UI if needed (e.g., pass new data to the controller)
+        // Handle updates to the UI if needed
+        uiViewController.view.backgroundColor = .clear
+        uiViewController.view.isOpaque = false
     }
 }

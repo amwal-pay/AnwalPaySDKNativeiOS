@@ -14,30 +14,26 @@ struct FormView: View {
 
 
     @StateObject private var viewModel = PaymentFormViewModel()
-    @State private var showToast = false
+
     var body: some View {
-        ZStack {
             VStack {
-                Text("Amwal Pay Demo")
-                    .font(.title)
-                    .padding()
-                    .toolbar{
-                        ToolbarItem(placement: .navigationBarTrailing){
-                            Button(action: {
-                            
-                                UserDefaults.standard.removeObject(forKey: "customer_id")
-                                showToast = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                   showToast = false
-                                }
-                            
-                            }){
-                    
-                                Image(systemName: "trash") // "trash" or "trash.fill"
-                                    .foregroundColor(.red) // Optional: set bin icon color
-                            }}
+//                if let config = viewModel.config {
+//                    onConfigReady(config)
+//                }
+                // Top Bar
+                HStack {
+                    Text("Amwal Pay Demo")
+                        .font(.title)
+                    Spacer()
+                    Button(action: {
+                        StorageClient.removeCustomerId()
+                    }) {
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
                     }
-              
+                }
+                .padding()
+                
                 // Form Content
                 ScrollView {
                     VStack(spacing: 16) {
@@ -72,7 +68,7 @@ struct FormView: View {
                             options: TransactionType.allCases.map { $0.rawValue },
                             selectedValue: viewModel.transactionType.rawValue,
                             onValueChange: { newValue in
-                                viewModel.transactionType = TransactionType(rawValue: newValue) ?? .NFC
+                                viewModel.transactionType = TransactionType(rawValue: newValue) ?? .CARD_WALLET
                             }
                         )
                         
@@ -84,15 +80,22 @@ struct FormView: View {
                                 viewModel.selectedEnv = Config.Environment(rawValue: newValue) ?? .UAT
                             }
                         )
+                        
+                        // Color Pickers
+                        ColorPickerRow(title: "Primary Color", selectedColor: $viewModel.primaryColor)
+                        ColorPickerRow(title: "Secondary Color", selectedColor: $viewModel.secondaryColor)
+                        
+                        // Ignore Receipt Toggle
+                        CustomToggle(title: "Ignore Receipt", isOn: $viewModel.ignoreReceipt)
+                        
+                        // Use Bottom Sheet Design Toggle
+                        CustomToggle(title: "Use Bottom Sheet Design", isOn: $viewModel.useBottomSheetDesign)
 
                         Spacer(minLength: 16)
 
                         // Initiate Payment Button
                         Button(action: {
-                            let customerId = UserDefaults.standard.string(forKey: "customer_id")
-                            viewModel.customerId = customerId
                             onSubmit(viewModel)
-                            
                         }) {
                             Text("Initiate Payment Demo")
                                 .fontWeight(.semibold)
@@ -105,24 +108,8 @@ struct FormView: View {
                     }
                     .padding()
                     .navigationTitle("Payment Form")
-                  
-                }.padding(.horizontal).animation(.easeInOut, value: showToast)
-              
+                }.padding(.horizontal)
             }
-            
-            if showToast {
-                            Text("Customer Id Deleted")
-                                .font(.body)
-                                .padding()
-                                .background(Color.black.opacity(0.8))
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .padding()
-                                .transition(.opacity)
-                                .zIndex(1) // Ensure it appears above other elements
-                        }
-        }
-            
         }
 
 }
@@ -178,5 +165,47 @@ struct CustomDropdown: View {
             .padding(.bottom, 8)
         } .frame(maxWidth: .infinity, alignment: .leading)
        
+    }
+}
+
+
+// Color Picker Row Component
+struct ColorPickerRow: View {
+    var title: String
+    @Binding var selectedColor: Color
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            Spacer()
+            ColorPicker("", selection: $selectedColor, supportsOpacity: false)
+                .labelsHidden()
+                .frame(width: 44, height: 44)
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color.gray, lineWidth: 1))
+        .padding(.bottom, 8)
+    }
+}
+
+// Custom Toggle Component
+struct CustomToggle: View {
+    var title: String
+    @Binding var isOn: Bool
+    
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+            Spacer()
+            Toggle("", isOn: $isOn)
+                .labelsHidden()
+        }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 8).strokeBorder(Color.gray, lineWidth: 1))
+        .padding(.bottom, 8)
     }
 }

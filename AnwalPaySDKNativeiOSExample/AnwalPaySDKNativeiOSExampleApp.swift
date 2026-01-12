@@ -12,89 +12,50 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
 
     private let networkClient = NetworkClient()
     @State private var config: Config?
-    @State private var lastViewModel: PaymentFormViewModel?
-   
-
-
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
                 FormView(onSubmit:  { viewModel in
-                    lastViewModel = viewModel
                     startSdk(viewModel: viewModel)
                 })
-                .navigationDestination(isPresented: Binding<Bool>(
+                .fullScreenCover(isPresented: Binding<Bool>(
                     get: { config != nil },
                     set: { if !$0 { config = nil } }
                 )) {
-                    
-                                   if let config = config {
-                                       SDKViewControllerRepresentable(
-                                           config: config,
-                                           onResponse: {
-                                               response in handleResponse(response: response)
-                    
-                                           },
-                                           onCustomerId:  { customerId in
-                                               UserDefaults.standard.set(customerId, forKey: "customer_id")
-                                           }
-                                       ) .navigationBarHidden(true)
-                                   }
-                               }
-            }
-        }
-    }
-    
-    func handleResponse(response: String?) {
-        guard let response = response else {
-            print("Response is nil.")
-            return
-        }
-
-        // Convert the string to Data
-        guard let data = response.data(using: .utf8) else {
-            print("Failed to convert string to Data.")
-            return
-        }
-
-        // Parse the JSON
-        do {
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                // Extract customerTokenId
-                if let customerTokenId = json["customerId"] as? String {
-                    UserDefaults.standard.set( customerTokenId, forKey: "customer_id")
-                } else {
-                    print("Customer Token ID not found.")
+                    if let config = config {
+                        ZStack {
+                            // Transparent background helper
+                            Color.clear
+                            
+                            SDKViewControllerRepresentable(
+                                config: config,
+                                onResponse: { _ in },
+                                onCustomerId: { customerId in
+                                    StorageClient.saveCustomerId(customerId)
+                                }
+                            )
+                            .ignoresSafeArea()
+                        }
+                        .background(Color.clear)
+                        // Attempt to make the hosting controller transparent
+                        .presentationBackground(.clear)
+                    }
                 }
-            } else {
-                print("Failed to parse JSON into dictionary.")
-            }
-        } catch {
-            print("Error parsing JSON: \(error.localizedDescription)")
-        }
-        
-        // Reset config to nil and recreate it to show saved cards sheet again
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if let viewModel = self.lastViewModel {
-                self.startSdk(viewModel: viewModel)
             }
         }
     }
-
-
     
     func startSdk(viewModel: PaymentFormViewModel) {
+        let storedCustomerId = StorageClient.getCustomerId()
         networkClient.fetchSessionToken(
-            env: viewModel.selectedEnv,
+            env: .UAT,
             merchantId: viewModel.merchantId,
-            customerId: viewModel.customerId,
+            customerId: storedCustomerId,
             secureHashValue: viewModel.secureHash
         ) { [self] sessionToken in
             if let token = sessionToken {
                 
-                print("Session token: \(token)")
-                print("customer id: \(viewModel.customerId ?? "nullString")")
                 // Map the UI transaction type to the SDK transaction type
                 let sdkTransactionType: Config.TransactionType
                 switch viewModel.transactionType {
@@ -113,12 +74,17 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                     amount: viewModel.amount,
                     merchantId: viewModel.merchantId,
                     terminalId: viewModel.terminalId,
+                    customerId: storedCustomerId,
                     locale: viewModel.language,
                     transactionType: sdkTransactionType,
-                    transactionId: Config.generateTransactionId(),
+                    transactionId: Config.generateTransactionId(), // Optional: Can be nil for auto-generation
                     additionValues: [
-                      "merchantIdentifier": "merchant.shahd.test"
-                  ], // Optional: Includes merchantIdentifier for Apple Pay
+                        "merchantIdentifier": "merchant.shahd.test",
+                        "primaryColor": viewModel.primaryColorHex,
+                        "secondaryColor": viewModel.secondaryColorHex,
+                        "ignoreReceipt": String(viewModel.ignoreReceipt),
+                        "useBottomSheetDesign": String(viewModel.useBottomSheetDesign)
+                    ],
                     merchantReference: viewModel.merchantReference.isEmpty ? nil : viewModel.merchantReference
                 )
                                 
