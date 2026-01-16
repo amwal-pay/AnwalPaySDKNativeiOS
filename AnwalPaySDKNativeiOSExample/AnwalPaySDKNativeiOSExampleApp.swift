@@ -17,38 +17,30 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
+            SDKOverlayView(
+                config: config,
+                onDismiss: {
+                    showSDK = false
+                    self.config = nil
+                },
+                onCustomerId: { customerId in
+                    StorageClient.saveCustomerId(customerId)
+                }
+            ) {
                 NavigationStack {
                     FormView(onSubmit: { viewModel in
                         startSdk(viewModel: viewModel)
                     })
                 }
-                
-                // Overlay the SDK instead of using fullScreenCover
-                // This allows the SDK to present share sheets properly
-                if showSDK, let config = config {
-                    SDKOverlayView(
-                        config: config,
-                        onDismiss: {
-                            showSDK = false
-                            self.config = nil
-                        },
-                        onCustomerId: { customerId in
-                            StorageClient.saveCustomerId(customerId)
-                        }
-                    )
-                    .transition(.opacity)
-                    .zIndex(1)
-                }
             }
-            .animation(.easeInOut(duration: 0.3), value: showSDK)
+            .opacity(showSDK && config != nil ? 1 : 0)
         }
     }
     
     func startSdk(viewModel: PaymentFormViewModel) {
         let storedCustomerId = StorageClient.getCustomerId()
         networkClient.fetchSessionToken(
-            env: .UAT,
+            env: viewModel.selectedEnv,
             merchantId: viewModel.merchantId,
             customerId: storedCustomerId,
             secureHashValue: viewModel.secureHash
