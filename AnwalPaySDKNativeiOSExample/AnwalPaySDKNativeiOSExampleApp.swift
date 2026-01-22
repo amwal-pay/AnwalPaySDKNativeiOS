@@ -23,9 +23,11 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                 onDismiss: {
                     showSDK = false
                     self.config = nil
+                    LogsManager.shared.addLog("SDK dismissed", type: .info)
                 },
                 onCustomerId: { customerId in
                     StorageClient.saveCustomerId(customerId)
+                    LogsManager.shared.addLog("Customer ID received: \(customerId)", type: .customerId)
                 }
             ) {
                 NavigationStack {
@@ -38,7 +40,12 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
     }
     
     func startSdk(viewModel: PaymentFormViewModel) {
+        LogsManager.shared.addLog("Starting SDK initialization", type: .info)
+        
         let storedCustomerId = StorageClient.getCustomerId()
+        
+        LogsManager.shared.addLog("Getting session token for merchant: \(viewModel.merchantId)", type: .info)
+        
         networkClient.fetchSessionToken(
             env: viewModel.selectedEnv,
             merchantId: viewModel.merchantId,
@@ -46,6 +53,7 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
             secureHashValue: viewModel.secureHash
         ) { [self] sessionToken in
             if let token = sessionToken {
+                LogsManager.shared.addLog("Session token received, initializing SDK", type: .info)
                 
                 // Map the UI transaction type to the SDK transaction type
                 let sdkTransactionType: Config.TransactionType
