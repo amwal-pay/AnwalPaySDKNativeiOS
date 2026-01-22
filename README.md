@@ -208,12 +208,35 @@ The UUID generator creates lowercase UUIDs ensuring compatibility with the payme
 
 ### Addition Values Configuration
 
-The SDK supports `additionValues` parameter for passing custom key-value pairs that can be used for various SDK functionalities. This is particularly important for Apple Pay configuration.
+The SDK supports `additionValues` parameter for passing custom key-value pairs that can be used for various SDK functionalities including UI customization and payment flow control. This is particularly important for Apple Pay configuration.
 
 #### Default Addition Values
 
 The SDK automatically provides default values:
 - `merchantIdentifier`: "merchant.applepay.amwalpay" (used for Apple Pay configuration)
+
+#### Available Configuration Options
+
+##### UI Customization
+- **`useBottomSheetDesign`**: `"true"` | `"false"` (default: `"false"`)
+  - Controls the payment screen design
+  - `"true"`: Uses the newer bottom sheet design (v2) - slides up from bottom covering 90% of screen
+  - `"false"`: Uses the original full-screen design
+
+- **`primaryColor`**: Hex color string (e.g., `"#FF5733"`)
+  - Sets the primary theme color for the SDK UI
+
+- **`secondaryColor`**: Hex color string (e.g., `"#33FF57"`)
+  - Sets the secondary theme color for the SDK UI
+
+##### Payment Flow
+- **`ignoreReceipt`**: `"true"` | `"false"` (default: `"false"`)
+  - Controls whether to show the receipt screen after transaction
+  - `"true"`: Skips the receipt display
+  - `"false"`: Shows the receipt screen
+
+- **`merchantIdentifier`**: String (default: `"merchant.applepay.amwalpay"`)
+  - Apple Pay merchant identifier for iOS
 
 #### Apple Pay Specific Configuration
 
@@ -244,12 +267,16 @@ let config = Config(
 )
 ```
 
-##### Example 2: Using Custom Apple Pay Merchant Identifier
+##### Example 2: Using Custom Apple Pay Merchant Identifier with UI Customization
 
 ```swift
-// For your own Apple Pay merchant ID
+// For your own Apple Pay merchant ID with bottom sheet design and colors
 let customAdditionValues = [
-    "merchantIdentifier": "merchant.com.yourcompany.applepay"
+    "merchantIdentifier": "merchant.com.yourcompany.applepay",
+    "useBottomSheetDesign": "true",
+    "primaryColor": "#FF5733",
+    "secondaryColor": "#33FF57",
+    "ignoreReceipt": "false"
 ]
 
 let config = Config(
@@ -266,12 +293,37 @@ let config = Config(
 )
 ```
 
-##### Example 3: Adding Additional Custom Values
+##### Example 3: Minimal Configuration with Bottom Sheet Design
+
+```swift
+// Using just bottom sheet design with default colors
+let minimalCustomValues = [
+    "useBottomSheetDesign": "true"
+]
+
+let config = Config(
+    environment: .UAT,
+    sessionToken: token,
+    currency: .OMR,
+    amount: "100",
+    merchantId: "your_merchant_id",
+    terminalId: "your_terminal_id",
+    locale: .en,
+    transactionType: .cardWallet,
+    transactionId: Config.generateTransactionId(),
+    additionValues: minimalCustomValues
+)
+```
+
+##### Example 4: Adding Additional Custom Values
 
 ```swift
 // You can add more custom key-value pairs alongside merchantIdentifier
 let extendedAdditionValues = [
     "merchantIdentifier": "merchant.com.yourcompany.applepay",
+    "useBottomSheetDesign": "true",
+    "primaryColor": "#7F22FF",
+    "ignoreReceipt": "true"
 ]
 
 let config = Config(
@@ -288,16 +340,7 @@ let config = Config(
 )
 ```
 
-##### Example 4: For Non-Apple Pay Transactions
-
-```swift
-// For NFC or Card Wallet transactions, additionValues is optional
-let config = Config(
-    environment: .UAT,
-    sessionToken: token,
-    currency: .OMR,
-    amount: "100",
-    merchantId: "your_merchant_id",
+**Note:** All boolean values should be passed as strings (`"true"` or `"false"`). Custom `additionValues` will be merged with defaults, with custom values taking precedence.
     terminalId: "your_terminal_id",
     locale: .en,
     transactionType: .nfc,  // or .cardWallet
