@@ -12,8 +12,8 @@ struct FormView: View {
     
     var onSubmit: (PaymentFormViewModel) -> Void  // Closure to handle config
 
-
     @StateObject private var viewModel = PaymentFormViewModel()
+    @State private var showLogsViewer = false
 
     var body: some View {
             VStack {
@@ -25,6 +25,12 @@ struct FormView: View {
                     Text("Amwal Pay Demo")
                         .font(.title)
                     Spacer()
+                    Button(action: {
+                        showLogsViewer = true
+                    }) {
+                        Image(systemName: "ladybug")
+                            .foregroundColor(.blue)
+                    }
                     Button(action: {
                         StorageClient.removeCustomerId()
                     }) {
@@ -109,6 +115,9 @@ struct FormView: View {
                     .padding()
                     .navigationTitle("Payment Form")
                 }.padding(.horizontal)
+            }
+            .sheet(isPresented: $showLogsViewer) {
+                LogsViewer()
             }
         }
 
