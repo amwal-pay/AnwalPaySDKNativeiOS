@@ -54,14 +54,15 @@ networkClient.fetchSessionToken(
         let config = Config(
             environment: .UAT,  // Available options: .UAT, .PROD, .SIT
             sessionToken: token,
-            currency: .OMR,     // Available options: .OMR, .USD, etc.
+            currency: .OMR,     // Available options: .OMR,
             amount: "AMOUNT",
             merchantId: "YOUR_MERCHANT_ID",
             terminalId: "YOUR_TERMINAL_ID",
             locale: .en,        // Available options: .en, .ar
-            transactionType: .nfc,  // Available options: .nfc, .cardWallet, .applePay
+            transactionType: .cardWallet,  // Available options: .nfc, .cardWallet, .applePay
             transactionId: Config.generateTransactionId(),  // Optional: Auto-generated if nil
-            additionValues: Config.generateDefaultAdditionValues(),  // Optional: Custom key-value pairs
+            additionValues: Config.generateDefaultAdditionValues(),  // Optional - PLEASE REFER UI Customization section to understand how you can use these values for UI customization
+                                                                        // Please refer to Apple Pay Specific Configuration to understand how you can provide apple pay related configurations to SDK   
             merchantReference: "optional-merchant-reference"  // Optional: Merchant reference for transaction tracking
         )
         
@@ -227,7 +228,7 @@ The SDK automatically provides default values:
   - Sets the primary theme color for the SDK UI
 
 - **`secondaryColor`**: Hex color string (e.g., `"#33FF57"`)
-  - Sets the secondary theme color for the SDK UI
+  - Sets the secondary theme color for the SDK UI for full page design
 
 ##### Payment Flow
 - **`ignoreReceipt`**: `"true"` | `"false"` (default: `"false"`)
