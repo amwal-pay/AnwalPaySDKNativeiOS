@@ -12,14 +12,14 @@ import amwalsdk
 // ViewModel class conforming to ObservableObject
 class PaymentFormViewModel: ObservableObject {    
     
-    @Published var merchantId: String = "116194"
-    @Published var terminalId: String = "708393"
+    @Published var merchantId: String = "7394"
+    @Published var terminalId: String = "196456"
     @Published var amount: String = "1"
     @Published var currency: Config.Currency = .OMR
     @Published var language: Config.Locale = .en
     @Published var transactionType: TransactionType = .CARD_WALLET
-    @Published var secureHash: String = "2B03FCDC101D3F160744342BFBA0BEA0E835EE436B6A985BA30464418392C703"
-    @Published var selectedEnv: Config.Environment = .UAT
+    @Published var secureHash: String = "C0873776E2290E208FBBA27795DFC51B1531E73D187518106FE45DF344865149"
+    @Published var selectedEnv: Config.Environment = .SIT
     @Published var merchantReference: String = "1234"
     
     // Additional values
