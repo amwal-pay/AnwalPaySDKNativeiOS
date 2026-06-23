@@ -30,11 +30,12 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                     LogsManager.shared.addLog("Customer ID received: \(customerId)", type: .customerId)
                 }
             ) {
-                NavigationStack {
+                NavigationView {
                     FormView(onSubmit: { viewModel in
                         startSdk(viewModel: viewModel)
                     })
                 }
+                .navigationViewStyle(.stack)
             }
         }
     }
@@ -90,6 +91,7 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                                 
             } else {
                 print("Failed to fetch session token.")
+                LogsManager.shared.addLog("Failed to fetch session token", type: .error)
             }
         }
     }
