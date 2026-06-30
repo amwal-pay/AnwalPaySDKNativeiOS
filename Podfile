@@ -7,8 +7,8 @@ target 'AnwalPaySDKNativeiOSExample' do
 
   # Use Debug for simulator testing, Release for device/production
 #   pod 'amwalsdk/Debug'
-#   pod 'amwalsdk/Release'
-  pod 'amwalsdk/Release', :path => '../amwal_pay_sdk/AnwalPaySDKNativeiOSExample/amwalsdk'
+  pod 'amwalsdk/Debug','1.1.71'
+#   pod 'amwalsdk/Release', :path => '../amwal_pay_sdk/AnwalPaySDKNativeiOSExample/amwalsdk'
 end
 
 # FlutterPluginRegistrant is a static xcframework. CocoaPods with use_frameworks!
