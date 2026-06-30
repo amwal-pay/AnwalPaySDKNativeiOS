@@ -7,7 +7,7 @@ target 'AnwalPaySDKNativeiOSExample' do
 
   # Use Debug for simulator testing, Release for device/production
 #   pod 'amwalsdk/Debug'
-  pod 'amwalsdk/Debug','1.1.71'
+  pod 'amwalsdk/Release','1.1.71'
 #   pod 'amwalsdk/Release', :path => '../amwal_pay_sdk/AnwalPaySDKNativeiOSExample/amwalsdk'
 end
 
