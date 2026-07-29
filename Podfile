@@ -6,9 +6,15 @@ target 'AnwalPaySDKNativeiOSExample' do
   use_frameworks! # Required for Flutter modules
 
   # Use Debug for simulator testing, Release for device/production
-#   pod 'amwalsdk/Debug'
-#   pod 'amwalsdk/Release'
-  pod 'amwalsdk/Release', :path => '../amwal_pay_sdk/AnwalPaySDKNativeiOSExample/amwalsdk'
+   pod 'amwalsdk/Release'
+#   pod 'amwalsdk/Release','1.1.71'
+#  pod 'amwalsdk/Release', :path => '../amwal_pay_sdk/AnwalPaySDKNativeiOSExample/amwalsdk'
+
+  # amwalsdk 1.1.99+ App.framework was built with Flutter 3.41 which uses the FFI-based
+  # objective_c package for path_provider_foundation. The released pod ships no
+  # objective_c.framework, so GetStorage._init throws DOBJC_initializeApi at runtime.
+  # Simulator-only slice vendored locally until the SDK's CI packaging includes it.
+  pod 'objective_c', :path => 'LocalPods/objective_c'
 end
 
 # FlutterPluginRegistrant is a static xcframework. CocoaPods with use_frameworks!
