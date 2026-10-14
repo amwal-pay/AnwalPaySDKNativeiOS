@@ -6,11 +6,12 @@ workflows:
     integrations:
       app_store_connect: Amwal CodeMagic
     environment:
+      # Automatic signing: Codemagic fetches/creates the cert and profile from
+      # App Store Connect on every build, so they can never go stale. Do NOT go
+      # back to naming manually uploaded files here — those expire and break CI.
       ios_signing:
-        provisioning_profiles:
-          - Amwal native Example new
-        certificates:
-          - Code Magic Apple Dis
+        distribution_type: app_store
+        bundle_identifier: com.anwalpay.sdk.example
       vars:
         XCODE_WORKSPACE: "AnwalPaySDKNativeiOSExample.xcworkspace"
         XCODE_SCHEME: "AnwalPaySDKNativeiOSExample"

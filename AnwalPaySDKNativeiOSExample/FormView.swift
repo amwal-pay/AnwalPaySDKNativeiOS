@@ -14,6 +14,7 @@ struct FormView: View {
 
     @StateObject private var viewModel = PaymentFormViewModel()
     @State private var showLogsViewer = false
+    @State private var showCustomerIdClearedAlert = false
 
     var body: some View {
             VStack {
@@ -33,6 +34,7 @@ struct FormView: View {
                     }
                     Button(action: {
                         StorageClient.removeCustomerId()
+                        showCustomerIdClearedAlert = true
                     }) {
                         Image(systemName: "trash")
                             .foregroundColor(.red)
@@ -118,6 +120,11 @@ struct FormView: View {
             }
             .sheet(isPresented: $showLogsViewer) {
                 LogsViewer()
+            }
+            .alert("Customer ID Cleared", isPresented: $showCustomerIdClearedAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("The saved customer ID has been cleared.")
             }
         }
 
