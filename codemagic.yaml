@@ -25,8 +25,16 @@ workflows:
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
-          echo "Current PROJECT_BUILD_NUMBER is $PROJECT_BUILD_NUMBER"
-          agvtool new-version -all "$PROJECT_BUILD_NUMBER"
+          # Codemagic's PROJECT_BUILD_NUMBER is a per-app counter that lags the
+          # builds already in TestFlight (it gave 32 when TestFlight had 97), so
+          # base the number on the latest TestFlight build instead.
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID" || echo 0)
+          NEW_BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
+          if [ "$PROJECT_BUILD_NUMBER" -gt "$NEW_BUILD_NUMBER" ]; then
+            NEW_BUILD_NUMBER=$PROJECT_BUILD_NUMBER
+          fi
+          echo "Latest TestFlight build: $LATEST_BUILD_NUMBER -> using $NEW_BUILD_NUMBER"
+          agvtool new-version -all "$NEW_BUILD_NUMBER"
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
