@@ -85,7 +85,9 @@ struct AnwalPaySDKNativeiOSExampleApp: App {
                         "ignoreReceipt": String(viewModel.ignoreReceipt),
                         "useBottomSheetDesign": String(viewModel.useBottomSheetDesign)
                     ],
-                    merchantReference: viewModel.merchantReference.isEmpty ? nil : viewModel.merchantReference
+                    merchantReference: viewModel.merchantReference.isEmpty ? nil : viewModel.merchantReference,
+                    // Optional: split rule profile ID (GUID) for "By Transaction" split settlement
+                    splitProfileId: viewModel.trimmedSplitProfileId
                 )
                 showSDK = true
                                 

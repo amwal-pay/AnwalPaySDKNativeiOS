@@ -51,6 +51,7 @@ struct FormView: View {
                         CustomTextField(label: "Amount", text: $viewModel.amount)
                         CustomTextField(label: "Secret Key", text: $viewModel.secureHash)
                         CustomTextField(label: "Merchant Reference (Optional)", text: $viewModel.merchantReference)
+                        CustomTextField(label: "Split Profile ID (Optional)", text: $viewModel.splitProfileId)
                         
                         // Dropdowns for Currency, Language, Transaction Type, and Environment
                         CustomDropdown(

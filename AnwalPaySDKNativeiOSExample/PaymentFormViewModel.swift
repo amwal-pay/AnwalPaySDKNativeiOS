@@ -21,6 +21,13 @@ class PaymentFormViewModel: ObservableObject {
     @Published var secureHash: String = "C0873776E2290E208FBBA27795DFC51B1531E73D187518106FE45DF344865149"
     @Published var selectedEnv: Config.Environment = .SIT
     @Published var merchantReference: String = "1234"
+    @Published var splitProfileId: String = ""
+
+    /// Split rule profile ID to send, or nil when the field is blank.
+    var trimmedSplitProfileId: String? {
+        let value = splitProfileId.trimmingCharacters(in: .whitespacesAndNewlines)
+        return value.isEmpty ? nil : value
+    }
     
     // Additional values
     @Published var primaryColor: Color = Color(hex: "#7F22FF") ?? .purple

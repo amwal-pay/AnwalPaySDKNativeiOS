@@ -63,7 +63,8 @@ networkClient.fetchSessionToken(
             transactionId: Config.generateTransactionId(),  // Optional: Auto-generated if nil
             additionValues: Config.generateDefaultAdditionValues(),  // Optional - PLEASE REFER UI Customization section to understand how you can use these values for UI customization
                                                                         // Please refer to Apple Pay Specific Configuration to understand how you can provide apple pay related configurations to SDK   
-            merchantReference: "optional-merchant-reference"  // Optional: Merchant reference for transaction tracking
+            merchantReference: "optional-merchant-reference",  // Optional: Merchant reference for transaction tracking
+            splitProfileId: "split-rule-profile-guid"  // Optional: "By Transaction" split rule profile ID (see below)
         )
         
         // Initialize and present the payment SDK
@@ -192,6 +193,10 @@ HMAC SHA256 hashing ensures data integrity and authenticity between systems.
 Example String to calculate Secure Hash using SHA-256 when not using customer ID = merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
 Example String to calculate Secure Hash using SHA-256 when using customer ID = customerID=123&merchantID=22914&requestDatetime=2025-02-16T12:43:51Z
 
+
+### Split by Transaction (`splitProfileId`)
+
+`splitProfileId` is an optional split rule profile ID (GUID) for transaction-level split settlement. Use it only when the merchant's split rule is configured as **By Transaction**: in the merchant portal, open the merchant's split rules, open the rule, and copy its `profileId` from the rule details. The transaction amount is then settled across the rule's settlement accounts by the rule's percentages. When omitted (`nil`), the merchant's default settlement applies. Requires `amwalsdk` 1.1.114 or later.
 
 ### UUID Generation
 
